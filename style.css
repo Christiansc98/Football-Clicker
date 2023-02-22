@@ -1,0 +1,74 @@
+#game_background {
+  background-image: url(images/pitch.jpg);
+  background-size: 100%;
+  grid-area: 1 /1;
+}
+
+#ball1_container {
+  width: 13%;
+  position: absolute;
+  top: 5%;
+  left: 37%;
+}
+
+#game_elements {
+  grid-area: 2 / 1;
+  position: relative;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+#screen {
+  display: grid;
+  grid-template: 100vh / 100%;
+}
+
+#game {
+  display: grid;
+  grid-template: 100% / 100%;
+}
+
+#ball1_sprite {
+  width: 20%;
+}
+
+#ball2_container {
+  width: 13%;
+  position: absolute;
+  top: 5%;
+  left: 37%;
+}
+
+#ball2_sprite {
+  width: 100%;
+}
+
+@keyframes game_elements {
+  0% {
+    transform: translate(0, 0vw);
+  }
+  100% {
+    transform: translate(0, 400%);
+  }
+}
+.falling {
+  animation-name: falling;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+#healthbar_sprite {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 20%;
+  width: 20%;
+}
+#time_sprite {
+  position: absolute;
+  top: -100px;
+  right: 530px;
+}
