@@ -1,21 +1,70 @@
 "use strict";
-window.addEventListener("load", start);
+window.addEventListener("load", ready);
 
 let points = 0;
 let lives = 0;
 
-function start() {
+function ready() {
+  console.log("JavaScript ready");
+  document.querySelector("#btn_start").addEventListener("click", startGame);
+  document.querySelector("#btn_retry").addEventListener("click", startGame);
+  document;
+  document
+    .querySelector("#btn_return")
+    .addEventListener("click", showStartScreen);
+}
+function showGameScreen() {
+  // Skjul startskærm, game over og level complete
+  document.querySelector("#start").classList.add("hidden");
+  document.querySelector("#game_over").classList.add("hidden");
+  document.querySelector("#level_complete").classList.add("hidden");
+}
+document.querySelector("#btn_retry").addEventListener("click", showStartScreen);
+function showStartScreen() {
+  // fjern hidden fra startskærm og tilføj til game over og level complete
+  document.querySelector("#start").classList.remove("hidden");
+  document.querySelector("#game_over").classList.add("hidden");
+  document.querySelector("#level_complete").classList.add("hidden");
+}
+document
+  .querySelector("#btn_return")
+  .addEventListener("click", showStartScreen);
+
+function resetLives() {
+  // sæt lives til 3
+  lives = 3;
+  //nulstil visning af liv (hjerte vi ser)
+  document.querySelector("#heart1").classList.remove("broken_heart");
+  document.querySelector("#heart2").classList.remove("broken_heart");
+  document.querySelector("#heart3").classList.remove("broken_heart");
+  document.querySelector("#heart1").classList.add("active_heart");
+  document.querySelector("#heart2").classList.add("active_heart");
+  document.querySelector("#heart3").classList.add("active_heart");
+}
+
+function resetPoints() {
+  // nulstil point
+  points = 0;
+  // nulstil vising af point
+  displayPoints();
+}
+function startGame() {
   console.log("JavaScript kører!");
+
+  resetLives();
+  resetPoints();
+  showGameScreen();
+  startTimer();
 
   points = 0;
   lives = 3;
+  // skjul startskærm
+  document.querySelector("#start").classList.add("hidden");
 
-  document.querySelector("#ball1_container").classList.add("falling");
-  document.querySelector("#ball2_container").classList.add("falling");
-  document.querySelector("#ball3_container").classList.add("falling");
-  document.querySelector("#ball4_container").classList.add("falling");
-  document.querySelector("#ball5_container").classList.add("falling");
+  document.querySelector("#sound_stadium").play();
 
+  startAllAnimations();
+  //registrer click
   document
     .querySelector("#ball1_container")
     .addEventListener("click", clickBall1);
@@ -32,10 +81,24 @@ function start() {
     .querySelector("#ball5_container")
     .addEventListener("click", clickBall5);
 }
+function startAllAnimations() {
+  // Start falling animationer
+  document.querySelector("#ball1_container").classList.add("falling");
+  document.querySelector("#ball2_container").classList.add("falling");
+  document.querySelector("#ball3_container").classList.add("falling");
+  document.querySelector("#ball4_container").classList.add("falling");
+  document.querySelector("#ball5_container").classList.add("falling");
+
+  // Sæt position klasser
+  document.querySelector("#ball1_container").classList.add("position1");
+  document.querySelector("#ball2_container").classList.add("position2");
+  document.querySelector("#ball3_container").classList.add("position3");
+  document.querySelector("#ball4_container").classList.add("position4");
+  document.querySelector("#ball5_container").classList.add("position5");
+}
 
 function clickBall1() {
   console.log("Click ball");
-
   document
     .querySelector("#ball1_container")
     .removeEventListener("click", clickBall1);
@@ -47,6 +110,10 @@ function clickBall1() {
   document
     .querySelector("#ball1_container")
     .addEventListener("animationend", ball1Gone);
+
+  document.querySelector("#sound_ball").currentTime = 0;
+
+  document.querySelector("#sound_ball").play();
 
   incrementPoints();
 }
@@ -74,7 +141,7 @@ function clickBall2() {
 
   document
     .querySelector("#ball2_container")
-    .removeEventListener("click", clickball2);
+    .removeEventListener("click", clickBall2);
 
   document.querySelector("#ball2_container").classList.add("paused");
 
@@ -84,6 +151,9 @@ function clickBall2() {
     .querySelector("#ball2_container")
     .addEventListener("animationend", ball2Gone);
 
+  document.querySelector("#sound_wrong").currentTime = 0;
+
+  document.querySelector("#sound_wrong").play();
   decrementLives();
 }
 
@@ -120,7 +190,10 @@ function clickBall3() {
     .querySelector("#ball3_container")
     .addEventListener("animationend", ball3Gone);
 
-  decrementPoints();
+  document.querySelector("#sound_wrong").currentTime = 0;
+
+  document.querySelector("#sound_wrong").play();
+  decrementLives();
 }
 
 function ball3Gone() {
@@ -154,6 +227,12 @@ function clickBall4() {
   document
     .querySelector("#ball4_container")
     .addEventListener("animationend", ball4Gone);
+
+  document.querySelector("#sound_ball").currentTime = 0;
+
+  document.querySelector("#sound_ball").play();
+
+  incrementPoints();
 }
 
 function ball4Gone() {
@@ -187,6 +266,11 @@ function clickBall5() {
   document
     .querySelector("#ball5_container")
     .addEventListener("animationend", ball5Gone);
+
+  document.querySelector("#sound_wrong").currentTime = 0;
+
+  document.querySelector("#sound_wrong").play();
+  decrementLives();
 }
 
 function ball5Gone() {
@@ -206,6 +290,7 @@ function ball5Gone() {
     .querySelector("#ball5_container")
     .addEventListener("click", clickBall5);
 }
+
 function incrementPoints() {
   console.log("Giv point");
   points++;
@@ -219,7 +304,7 @@ function incrementPoints() {
 
 function displayPoints() {
   console.log("vis point");
-  document.querySelector("#coin_count").textContent = points;
+  document.querySelector("#ball_count").textContent = points;
 }
 
 function decrementLives() {
@@ -233,18 +318,73 @@ function decrementLives() {
   lives--;
 }
 
-function incrementLives() {
-  console.log("få et liv");
-  lives++;
-  showIncrementedLives();
-}
-
 function showDecrementedLives() {
   document.querySelector("#heart" + lives).classList.remove("active_heart");
   document.querySelector("#heart" + lives).classList.add("broken_heart");
 }
+function gameOver() {
+  console.log("Game Over");
+  document.querySelector("#game_over").classList.remove("hidden");
+  document.querySelector("#sound_over").currentTime = 0;
+  document.querySelector("#sound_game_over").play();
+  document
+    .querySelector("#btn_return")
+    .addEventListener("click", showStartScreen);
 
-function showIncrementedLives() {
-  document.querySelector("#heart" + lives).classList.remove("broken_heart");
-  document.querySelector("#heart" + lives).classList.add("active_heart");
+  stopGame();
+}
+function levelComplete() {
+  console.log("Level Complete");
+  document.querySelector("#level_complete").classList.remove("hidden");
+  document.querySelector("#sound_succes").currentTime = 0;
+  document.querySelector("#sound_succes").play();
+  document.querySelector("#btn_retry").addEventListener("click", startGame);
+  stopGame();
+}
+function startTimer() {
+  document.querySelector("#time_sprite").classList.add("shrink");
+  document
+    .querySelector("#time_sprite")
+    .addEventListener("animationend", timeIsUp);
+}
+
+function timeIsUp() {
+  console.log("times up");
+  if (points >= 10) {
+    levelComplete();
+  } else {
+    gameOver();
+  }
+}
+function stopGame() {
+  // Stop animationer
+  document.querySelector("#ball1_container").classList.remove("falling");
+  document.querySelector("#ball2_container").classList.remove("falling");
+  document.querySelector("#ball3_container").classList.remove("falling");
+  document.querySelector("#ball4_container").classList.remove("falling");
+  document.querySelector("#ball5_container").classList.remove("falling");
+
+  // Fjern click
+  document
+    .querySelector("#ball1_container")
+    .removeEventListener("click", clickBall1);
+  document
+    .querySelector("#ball2_container")
+    .removeEventListener("click", clickBall2);
+  document
+    .querySelector("#ball3_container")
+    .removeEventListener("click", clickBall3);
+  document
+    .querySelector("#ball4_container")
+    .removeEventListener("click", clickBall4);
+  document
+    .querySelector("#ball5_container")
+    .removeEventListener("click", clickBall5);
+
+  // Stop og nulstil lyde, fx baggrundsmusik
+  document.querySelector("#sound_stadium").pause();
+  document.querySelector("#sound_stadium").currentTime = 0;
+
+  // nulstil timer - fjern animationen fra timeren (fjern klassen shrink fra time_sprite)
+  document.querySelector("#time_sprite").classList.remove("shrink");
 }

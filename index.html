@@ -12,43 +12,83 @@
         <div id="game_background"></div>
         <div id="game_elements">
           <div id="ball1_container" class="falling">
-            <img id="ball1_sprite" src="images/ball.png" alt="ball1" />
+            <img
+              id="ball1_sprite"
+              src="images/ball.png"
+              alt="ball1"
+              draggable="false"
+            />
           </div>
           <div id="ball2_container" class="falling">
-            <img id="ball2_sprite" src="images/volleyball.webp" alt="ball2" />
+            <img
+              id="ball2_sprite"
+              src="images/volleyball.webp"
+              alt="ball2"
+              draggable="false"
+            />
           </div>
           <div id="ball3_container" class="falling">
-            <img id="ball3_sprite" src="images/basketball.jpeg" alt="ball3" />
+            <img
+              id="ball3_sprite"
+              src="images/basketball.jpeg"
+              alt="ball3"
+              draggable="false"
+            />
           </div>
           <div id="ball4_container" class="falling">
-            <img id="ball4_sprite" src="images/ball.png" alt="ball4" />
+            <img
+              id="ball4_sprite"
+              src="images/ball.png"
+              alt="ball4"
+              draggable="false"
+            />
           </div>
-           <div id="ball5_container" class="falling">
-            <img id="ball5_sprite" src="images/sport-ball-bowling-ball-free-png.webp" alt="ball5" />
+          <div id="ball5_container" class="falling">
+            <img
+              id="ball5_sprite"
+              src="images/sport-ball-bowling-ball-free-png.webp"
+              alt="ball5"
+              draggable="false"
+            />
           </div>
         </div>
         <div id="game_foreground"></div>
         <div id="game_ui">
           <div id="score_board">
-                    <span id="ball_count">0</span>
-                    <img id="ball_image" src="images/ball.png">
-          <img id="time_sprite" src="images/time.png" />
+            <span id="ball_count">0</span>
+            <img id="ball_image" src="images/ball.png" />
+          </div>
+          <div id="time_board">
+            <div id="time_container">
+              <div id="time_sprite"></div>
+          </div>
+
+          <div id="lifeboard">
+            <img id="heart1" src="images/heart.png" class="active_heart" />
+            <img id="heart2" src="images/heart.png" class="active_heart" />
+            <img id="heart3" src="images/heart.png" class="active_heart" />
+          </div>
         </div>
+      </div>
+      <div id="start">
+        <h2>Football Clicker</h2>
+        <p>Collect 10 footballs before the time runs out</p>
+        <button id="btn_start">Start</button>
+      </div>
 
-        <div id="lifeboard">
-          <img id="heart1" src="images/heart.png" class="active_heart"/>
-          <img id="heart2" src="images/heart.png" class="active_heart"/>
-          <img id="heart3" src="images/heart.png" class="active_heart"/>
-
-        </div>
-
-        <div id="start"></div>
-        
-        <div id="game_over"></div>
-        <div id="level_complete"></div>
+      <div id="game_over" class="hidden">
+        <button id="btn_return" class="pulse">Play Again</button>
+      </div>
+      <div id="level_complete" class="hidden">
+        <button id="btn_retry" class="pulse">Replay</button>
+        <h2>GG EZ!</h2>
       </div>
     </div>
-   
-     <script src="script.js"></script>
+    <audio id="sound_stadium" src="sounds/stadium.mp3"></audio>
+    <audio id="sound_ball" src="sounds/ball.mp3"></audio>
+    <audio id="sound_wrong" src="sounds/wrong.mp3"></audio>
+    <audio id="sound_succes" src="sounds/succes.mp3"></audio>
+    <audio id="sound_game_over" src="sounds/game-over-arcade-6435.mp3"></audio>
+    <script src="script.js"></script>
   </body>
 </html>

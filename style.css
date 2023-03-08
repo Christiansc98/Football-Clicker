@@ -1,3 +1,18 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+h2 {
+  font-size: 4em;
+  margin: 0;
+}
+
+p {
+  text-align: center;
+  font-size: 1.5em;
+  margin: 1em 0 1.5em;
+}
 #screen {
   aspect-ratio: 16 / 9;
 
@@ -114,12 +129,10 @@ body {
 #heart_sprite {
   width: 100%;
 }
-
-#time_sprite {
-  position: absolute;
-  top: -100px;
-  right: 530px;
+#time_board {
+  position: relative;
 }
+
 .falling {
   animation-name: falling;
   animation-duration: 4s;
@@ -135,15 +148,15 @@ body {
     transform: translate(0, 56.25vw);
   }
 }
-#life_board {
-  margin-block-start: 0.1em;
+#lifeboard {
+  margin-block-start: 0.2em;
   display: grid;
 
-  grid-template-columns: 0.2em 0.2em 0.2em;
+  grid-template-columns: 1.2em 1.2em 1.2em;
 }
 
-#life_board img {
-  width: 10%;
+#lifeboard img {
+  width: 100%;
 }
 
 .active_heart {
@@ -189,12 +202,6 @@ body {
 
   pointer-events: none;
 }
-#score_board {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 0.1em;
-}
-
 #ball_count {
   white-space: nowrap;
   text-align: right;
@@ -236,5 +243,182 @@ body {
   }
   100% {
     transform: scale(0);
+  }
+}
+.position1 {
+  left: 10vw;
+}
+
+.position2 {
+  left: 40vw;
+}
+
+.position3 {
+  left: 70vw;
+}
+
+.position4 {
+  left: 30vw;
+}
+
+.position5 {
+  left: 55vw;
+}
+.levelCompleteFont {
+  text-align: center;
+  font-size: 5em;
+}
+#level_complete,
+#start {
+  grid-area: 1 /1;
+  z-index: 999;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-image: url(images/start-2.png);
+  color: #4cea0e;
+  background-size: contain;
+  font-size: 24px;
+}
+#game_over {
+  grid-area: 1 /1;
+  z-index: 999;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-image: url(images/gameover.jpg);
+  color: #ffffff;
+  background-size: contain;
+}
+button {
+  padding: 0.5em 1em;
+  font-size: 2em;
+  margin: auto;
+  background-color: #ffffff;
+  color: #000000;
+  border: 10px solid #000000;
+  cursor: pointer;
+  border-radius: 10px;
+  position: absolute;
+  top: 600px;
+  right: 600px;
+}
+
+.hidden,
+#game_over.hidden,
+#level_complete.hidden,
+#game.hidden,
+#start.hidden {
+  display: none;
+}
+
+#time_board {
+  position: relative;
+}
+
+#time_container {
+  width: 20vw;
+  height: 3vw;
+  top: 5vw;
+  left: 95vw;
+  border: 1px solid white;
+}
+
+#time_sprite {
+  width: 20vw;
+  height: 3vw;
+  top: 5vw;
+  left: 95vw;
+  transform-origin: 0% 100%;
+  background-color: lime;
+}
+.shrink {
+  animation-name: shrink_kf;
+  animation-duration: 12s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes shrink_kf {
+  0% {
+    scale: 1 1;
+    background-color: limegreen;
+  }
+  50% {
+    background-color: rgb(255, 230, 0);
+  }
+  100% {
+    scale: 0 1;
+    background-color: red;
+  }
+}
+.pattern1 {
+  animation-name: pattern1;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes pattern1 {
+  0% {
+    transform: translate(180%, -120%);
+  }
+  25% {
+    transform: translate(0%, 0%);
+  }
+  50% {
+    transform: translate(100%, 200%);
+  }
+  75% {
+    transform: translate(30%, 300%);
+  }
+  100% {
+    transform: translate(180%, -120%);
+  }
+}
+
+.pattern2 {
+  animation-name: pattern2;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes pattern2 {
+  0% {
+    transform: translate(300%, -200%);
+  }
+  25% {
+    transform: translate(100%, 300%);
+  }
+  50% {
+    transform: translate(100%, 50%);
+  }
+  75% {
+    transform: translate(250%, 200%);
+  }
+  100% {
+    transform: translate(300%, -200%);
+  }
+}
+
+.falling1 {
+  animation-name: falling1;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes falling1 {
+  0% {
+    transform: translate(0, -100%);
+  }
+
+  33% {
+    transform: translate(200%, 0%);
+  }
+  66% {
+    transform: translate(600%, 200%);
+  }
+  100% {
+    transform: translate(0, 56.25vw);
   }
 }
